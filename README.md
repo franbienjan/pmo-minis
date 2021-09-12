@@ -1,4 +1,4 @@
-#PMO Mini Games
+# PMO Mini Games
 
 Migrated from Heroku, all PMO mini games that were coded shall now be based in GitHub.
 
