@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml"
+      th:replace="~{fragments/layout :: layout (~{::body},'hello')}">
+<body>
+<div class="container">
+    <h1 class="page-header">TAR POTIONS</h1>
+    <div class="row">
+        <form
+            th:action="@{/leg01/bathhouse/solve}"
+            th:object="${water}"
+            method="post">
+            <div class="col-md-4">
+                <table class="table-stripped">
+                    <tr>
+                        <th>Status:</th>
+                        <td><span th:text="${water.isSuccess() == true} ? 'SUCCESS! Proceed to next level.' : 'Keep on mixing!'"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Current Color:</th>
+                        <td>
+                            <b>
+                                <span style="color:red" th:if="${water.getColor().getString() == 'Red'}">RED</span>
+                                <span style="color:orange" th:if="${water.getColor().getString() == 'Orange'}">ORANGE</span>
+                                <span style="color:yellow" th:if="${water.getColor().getString() == 'Yellow'}">YELLOW</span>
+                                <span style="color:darkblue" th:if="${water.getColor().getString() == 'Dark Blue'}">DARK BLUE</span>
+                                <span style="color:skyblue" th:if="${water.getColor().getString() == 'Sky Blue'}">SKY BLUE</span>
+                                <span style="color:green" th:if="${water.getColor().getString() == 'Green'}">GREEN</span>
+                                <span style="color:deeppink" th:if="${water.getColor().getString() == 'Pink'}">PINK</span>
+                                <span style="color:purple" th:if="${water.getColor().getString() == 'Purple'}">PURPLE</span>
+                                <span style="color:gray" th:if="${water.getColor().getString() == 'Silver'}">SILVER</span>
+                                <span style="color:saddlebrown" th:if="${water.getColor().getString() == 'Brown'}">BROWN</span>
+                                <span style="color:black" th:if="${water.getColor().getString() == 'Sludge'}">SLUDGE</span>
+                            </b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Target Color:</th>
+                        <td>
+                            <b>
+                                <span style="color:red" th:if="${water.getEndColor().getString() == 'Red'}">RED</span>
+                                <span style="color:orange" th:if="${water.getEndColor().getString() == 'Orange'}">ORANGE</span>
+                                <span style="color:yellow" th:if="${water.getEndColor().getString() == 'Yellow'}">YELLOW</span>
+                                <span style="color:darkblue" th:if="${water.getEndColor().getString() == 'Dark Blue'}">DARK BLUE</span>
+                                <span style="color:skyblue" th:if="${water.getEndColor().getString() == 'Sky Blue'}">SKY BLUE</span>
+                                <span style="color:green" th:if="${water.getEndColor().getString() == 'Green'}">GREEN</span>
+                                <span style="color:deeppink" th:if="${water.getEndColor().getString() == 'Pink'}">PINK</span>
+                                <span style="color:purple" th:if="${water.getEndColor().getString() == 'Purple'}">PURPLE</span>
+                                <span style="color:gray" th:if="${water.getEndColor().getString() == 'Silver'}">SILVER</span>
+                                <span style="color:saddlebrown" th:if="${water.getEndColor().getString() == 'Brown'}">BROWN</span>
+                                <span style="color:black" th:if="${water.getEndColor().getString() == 'Sludge'}">SLUDGE</span>
+                            </b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Level:</th>
+                        <td><span th:text="*{level}"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Modifier:</th>
+                        <td><span th:text="*{modifier}"></span></td>
+                    </tr>
+                </table>
+                <br/>
+                <br/>
+                <a type="button" class="btn btn-lg btn-default" href="/leg01/bathhouse">Back to Main Menu</a>
+                <a type="button" class="btn btn-lg btn-default" th:href="@{/leg01/bathhouse/start (level=${water.level}, modifier=${water.modifier})}">Reset</a>
+                <div style="text-align:center;padding:1em 0;">
+                    <h4>
+                        <a style="text-decoration:none;" href="https://www.zeitverschiebung.net/en/city/1701668">
+                            <span style="color:gray;">Current local time in</span><br />Philippines</a>
+                    </h4>
+                    <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=en&size=small&timezone=Asia%2FManila" width="100%" height="90" frameborder="0" seamless></iframe>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div th:align="center">
+                    <img th:src="@{${water.getColor().getUrl()}}">
+                    <br/>
+                    <br/>
+                    <div th:if="${water.isSuccess() != true && water.getColor().getString() != 'Burnt'}">
+                        <p>Select token:</p>
+                        <button th:each="tile : ${#numbers.sequence(1, water.level+2)}"
+                                type="submit"
+                                name="tile"
+                                th:value="${tile}">
+                            <img th:src="@{${'/tile_0' + tile + '.gif'}}">
+                        </button>
+                    </div>
+                    <div th:if="${water.isSuccess() == true}">
+                        <h3 style="color: green"><b>SUCCESS!</b></h3>
+                        <a type="button" class="btn btn-lg btn-default" href="/leg01/bathhouse">Back to Main Menu</a>
+                    </div>
+                    <div th:if="${water.getColor().getString() == 'Burnt'}">
+                        <h3 style="color: red"><b>BURNT! Try again!</b></h3>
+                        <a type="button" class="btn btn-lg btn-default" th:href="@{/leg01/bathhouse/start (level=${water.level}, modifier=${water.modifier})}">Reset</a>
+                    </div>
+                    <input type="hidden" th:field="*{color}">
+                    <input type="hidden" th:field="*{attempts}">
+                    <input type="hidden" th:field="*{level}">
+                    <input type="hidden" th:field="*{modifier}">
+                    <input type="hidden" th:field="*{colorHistory}">
+                    <input type="hidden" th:field="*{endColor}">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <p>Color History:</p>
+                <b>
+                    <div th:each="color : ${water.colorHistory}">
+                        <span style="color:red" th:if="${color == 'Red'}">RED</span>
+                        <span style="color:orange" th:if="${color == 'Orange'}">ORANGE</span>
+                        <span style="color:yellow" th:if="${color == 'Yellow'}">YELLOW</span>
+                        <span style="color:darkblue" th:if="${color == 'Dark Blue'}">DARK BLUE</span>
+                        <span style="color:skyblue" th:if="${color == 'Sky Blue'}">SKY BLUE</span>
+                        <span style="color:green" th:if="${color == 'Green'}">GREEN</span>
+                        <span style="color:deeppink" th:if="${color == 'Pink'}">PINK</span>
+                        <span style="color:purple" th:if="${color == 'Purple'}">PURPLE</span>
+                        <span style="color:gray" th:if="${color == 'Silver'}">SILVER</span>
+                        <span style="color:saddlebrown" th:if="${color == 'Brown'}">BROWN</span>
+                        <span style="color:black" th:if="${color == 'Sludge'}">SLUDGE</span>
+                    </div>
+                </b>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

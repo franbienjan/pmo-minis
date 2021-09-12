@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="hallyu-code.js"></script>
+</head>
+<body>
+<center>
+    <h2>Hallyu Finale Code</h2>
+
+    <p>Note: Blanks are represented by __.</p>
+<textarea name="myTextArea" id="myTextArea" style="width:800px; height: 800px">
+
+Function ConvertToCurrency(Worksheet As Worksheet)
+
+Dim lColumn As Long
+Dim ColumnLetter As String
+
+
+    lColumn = Cells(1, Columns.Count).End(xlToLeft).Column
+    ColumnLetter = Split(Cells(1, lColumn).Address, "$")(1)
+
+    Range("A1:" & ColumnLetter & "1").NumberFormat = "@"
+
+
+End Function
+
+========================
+
+Sub ProjectedStartUpFunding(ByVal FinancialReport As Workbook)
+
+Dim row As Range
+Dim fundRng As Variant
+
+
+fund = Range("1:1").Find("Bank Loan", LookIn:=xlFormulas, LookAt:=xlWhole).Column
+lastRow = Cells(Cells.Rows.Count, fund).End(xlUp).row
+fundRng = Range(Cells(1, fund), Cells(lastRow, fund))
+
+ For i = 2 To UBound(fundRng)
+    If Cells(i, fund).Value != "" Then
+
+    Cells(i, fund).Copy Cells(i, fund).Offset(0, 1)
+    Cells(i, fund).Clear
+
+    End If
+
+ Next i
+
+End Sub
+
+========================
+
+Sub SortAmount(ByVal FinancialReport As Workbook)
+
+Dim amt As Integer
+Dim colRng As String
+
+FinancialReport.Sheets("List of Companies").Activate
+amt = Range("1:1").Find("Amount", LookIn:=xlFormulas, LookAt:=xlWhole).Column
+colRng = Cells(amt).Address
+Range(Cells(amt).Address, Range(Cells(amt).Address).End(xlDown)).Sort Key1:=Range(Cells(amt).Address), Order1:=xlAscending, Header:=xlYes
+'Range(Cells(colRng), Range(Cells(colRng).End(xlDown)).Sort Key1:=Range(Cells(colRng)), Order1:=xlAscending, header:=xlYes
+
+End Sub
+
+========================
+
+Sub PerformSteps()
+
+Dim MacroFile As Workbook: Set MacroFile = Workbooks(ThisWorkbook.Name)
+Dim ReportFilePath As String: CurrentReportFilePath = MacroFile.Sheets("Samsan").Cells(6, 2).Value
+Dim codeType As String
+Dim ReportWorkBook As Workbook: Set ReportWorkBook = Workbooks.Open(ReportFilePath, UpdateLinks:=False)
+
+
+codeType = MacroFile.Sheets("Samsan").Cells(8, 2).Value
+
+    'On Error GoTo ErrorManager
+
+    If InStr(codeType, "Type __") Then 'Leg 1
+        Call ClearColumn(ReportWorkBook, codeType)
+        Call SecondStep(ReportWorkBook)
+        Call ThirdStep(ReportWorkBook)
+        Call FinalStep(ReportWorkBook, codeType)
+    ElseIf InStr(codeType, "DOTS") Then
+        Call ClearColumn(ReportWorkBook, codeType)
+        Call SecondStep(ReportWorkBook)
+        Call ThirdStep(ReportWorkBook)
+        Call FinalStep(ReportWorkBook, codeType)
+    ElseIf InStr(codeType, "Type __") Then  'Leg 8
+        Call ClearColumn(ReportWorkBook, codeType)
+        Call SecondStep(ReportWorkBook)
+        Call ThirdStep(ReportWorkBook)
+        Call FinalStep(ReportWorkBook, codeType)
+    ElseIf InStr(codeType, "WYWS") Then
+        Call ClearColumn(ReportWorkBook, codeType)
+        Call SecondStep(ReportWorkBook)
+        Call ThirdStep(ReportWorkBook)
+        Call FinalStep(ReportWorkBook, codeType)
+    Else
+        ThisWorkbook.Sheets("Samsan").ErrorName.Value = "ErrorCode.__" 'Leg 6
+        Workbooks("ReportWorkbook").Close SaveChanges:=False
+        Exit Sub
+    End If
+
+         MacroFile.Sheets("Samsan").Activate
+         CurrentReportWorkBook.Save
+
+    Exit Sub
+
+ErrorManager:
+      ThisWorkbook.Sheets("Samsan").Range("B12").Value = "ErrorCode.3"
+      CurrentReportWorkBook.Close SaveChanges:=False
+
+End Sub
+
+========================
+
+ Function FindHeaderCol(rngHeaderRow, rngHeaderCol) As String
+
+ Set rngHeaderRow = Range(rngHeaderRow)
+ Set rngHeaderCol = rngHeaderRow.Find(rngHeaderCol)
+
+ FindHeaderCol = Split(Cells(1, rngHeaderCol.Column).Address, "$")(1)
+
+End Function
+
+========================
+
+Sub ThirdStep(ByVal ReportWorkBook As Workbook)
+
+Dim lastRow As Long
+Dim x As Integer
+Dim y As Integer
+Dim __ As Integer 'Leg 2
+Dim wsSheet As Worksheet: Set wsSheet = ReportWorkBook.Sheets("StartUp")
+
+With wsSheet
+    Call ConvertToCurrency(wsSheet)
+    ColumnYZ = FindHeaderCol("1:1", "Salary")
+    Column5 = FindHeaderCol("1:1", "ID Number")
+    Column__ = FindHeaderCol("1:1", "Employee Name") 'Leg 5
+    ColumnABC = FindHeaderCol("1:1", "Address")
+    ColumnV6 = FindHeaderCol("1:1", "Birthday")
+    lastRow = .Cells(.Rows.Count, Salary).End(xlUp).row
+
+    Columns("Z:Z").Insert Shift:=xlToRight, CopyOrigin:=xlFormatFromLeftOrAbove
+    Range("Z1").Value = "Total"
+
+    Total = FindHeaderCol("1:1", "Total")
+
+    For x = 2 To lastRow
+        For y = 2 To lastRow
+            If x != y Then
+                If .Range(ColumnYZ & x).Value = .Range(ColumnYZ & y).Value And .Range(ColumnYZ & x).Value != "" And .Range(ColumnYZ & y).Value != "" Then
+                  Range(Total & x).Formula = "=SUMIFS(" & ColumnYZ & ":" & ColumnYZ & "," &  & ":" & Column5 & "," & Column5 & x & ")"
+                 End If
+            End If
+        Next y
+    Next x
+
+    .Columns(Total).AutoFit
+    .UsedRange.Value = .UsedRange.Value
+
+End With
+
+    Application.ScreenUpdating = True
+
+End Sub
+
+========================
+
+Function ColumnExist(Worksheet As Worksheet, ColumnName As String) As Boolean
+    Dim __ As Variant 'Leg 7
+    With Worksheet
+        .Activate
+        Set x = .Cells.Rows.Find(ColumnName, , xlValues, , , , False)
+        If Not x Is Nothing Then
+            ColumnExist = True
+            Exit Function
+        Else
+            ColumnExist = False
+        End If
+        Set y = .Cells.Rows.Find(ColumnName, , xlFormulas, , , , False)
+        If Not y Is Nothing Then
+            ColumnExist = True
+            Exit Function
+        Else
+            ColumnExist = False
+        End If
+
+    End With
+
+End Function
+
+========================
+
+Sub VerifyStartUpBusiness()
+Dim ReportWorkBook As Workbook
+Dim MacroFile As Workbook
+Dim ReportFilePath As String
+Dim codeType As String
+Dim BusinessName As Variant
+Dim CEO As Variant
+Dim lastRow As Long
+
+Set MacroFile = Workbooks(ThisWorkbook.Name)
+
+'On Error GoTo ErrorManager
+
+MacroFile.Sheets("Samsan").Cells(12, 2).Value = "__" 'Leg 4
+
+ReportFilePath = MacroFile.Sheets("Samsan").Cells(6, 2).Value
+Set ReportWorkBook = Workbooks.Open(ReportFilePath, UpdateLinks:=False)
+codeType = MacroFile.Sheets("Samsan").Cells(8, 2).Value
+
+With MacroFile.Sheets("List of Start Up Businesses")
+    .Activate
+    lastRow = .Cells(Rows.Count, 1).End(xlUp).row
+    BusinessName = .Range("A2:__" & lastRow) 'Leg 3
+    lastRow = .Cells(Rows.Count, 4).End(xlUp).row
+    CEO = .Range("D2:F" & lastRow)
+End With
+
+For i = 1 To UBound(BusinessName)
+    If NeedSheet(i, 1) = codeType Then
+        If CheckSheets(BusinessName(i, 2), ReportWorkBook) = False Then
+            MacroFile.Sheets("Samsan").Cells(12, 2).Value = "CodeError.2"
+            Exit For
+        End If
+    End If
+Next
+
+If MacroFile.Sheets("Samsan").Cells(12, 2).Value != "" Then
+    Exit Sub
+End If
+
+For i = 1 To UBound(CEO)
+    If CEO(i, 1) = codeType Then
+
+        If ColumnExist(ReportWorkBook.Sheets(CStr(CEO(i, 2))), CStr(CEO(i, 3))) = False Then
+               MacroFile.Sheets("Samsan").Cells(12, 2).Value = "CodeError.7"
+               Exit For
+        End If
+
+    End If
+Next
+
+    MacroFile.Sheets("Samsan").Activate
+    ReportWorkBook.Save
+Exit Sub
+
+On Error GoTo 0
+ErrorManager:
+    MacroFile.Sheets("Samsan").Cells(12, 2).Value = "ErrorCode.__" 'Leg 9
+    ReportWorkBook.Close SaveChanges:=False
+
+End Sub
+</textarea></center>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml"
+      th:replace="~{fragments/layout :: layout (~{::body},'hello')}">
+<body>
+<div class="container">
+    <h1 class="page-header">TAR KATAL: Liquid Luck</h1>
+    <div th:align="center">
+        <form
+            th:action="@{/leg01/bathhouse/start (level=${level}, modifier=${modifier})}"
+            method="get">
+            <div class="col-md-4">
+                <img th:src="@{${'/13quen.png'}}">
+            </div>
+            <div class="col-md-4">
+                <p><b>Instructions:</b> Figure out the correct combination of SPECIAL INGREDIENTS to turn the potion
+                    to its required color. A color will always have a unique reaction output color when mixed with a specific ingredient.
+                    However, you may only add a certain number of ingredient (different per level)
+                    to complete the transformation before it turns into SLUDGE (meaning you need to start all over again).
+                    <br/><br/>
+                    There are THREE levels to this task, and each level has completely different potion reaction
+                    rules.
+                    <br/><br/>
+                </p>
+                <label>Enter modifier (as instructed by the Hosts):</label>
+                <input class="form-control" type="number" name="modifier" min="0" max="20" required/>
+                <br/>
+                <label>Select level:</label>
+                <select class="form-control" name="level">
+                    <option value="1">Level 1 (Easy)</option>
+                    <option value="2">Level 2 (Average)</option>
+                    <option value="3">Level 3 (Difficult)</option>
+                </select>
+                <br/>
+                <button type="submit" class="btn btn-lg btn-primary">START</button>
+            </div>
+            <div class="col-md-4">
+                <img th:src="@{${'/tile_01.gif'}}">
+                <img th:src="@{${'/tile_02.gif'}}">
+                <img th:src="@{${'/tile_03.gif'}}">
+                <img th:src="@{${'/tile_04.gif'}}">
+                <img th:src="@{${'/tile_05.gif'}}">
+            </div>
+            <br/><br/>
+        </form>
+    </div>
+</div>
+</body>
+</html>
