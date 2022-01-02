@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/boracaypuzz")
+@RequestMapping("/boracay-puzz")
 public class BoracayPuzzController {
 
-    private static final String BORACAY_PUZZ_HOME = "boracaypuzz";
+    private static final String BORACAY_PUZZ_HOME = "boracay-puzz";
 
     @GetMapping()
     public String startLevel() {
