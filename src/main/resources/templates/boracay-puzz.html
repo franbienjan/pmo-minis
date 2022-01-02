@@ -10,7 +10,7 @@
   }
 
   body {
-    background: #ded6ae;
+    background: #ADD8E6;
     display: inline;
     align-items: center;
     justify-content: center;
@@ -56,7 +56,7 @@
 <body>
     <img src="https://i.ibb.co/0M4GDg1/alltarwell-base-logo.png" style="width:100px;height:100px;">
     <br>
-    <canvas width="800" height="800" id="game"></canvas>
+    <canvas width="1600" height="800" id="game"></canvas>
     <br>
     <input id="leftBtn" type="button" class="button button1" value="Left">
     <input id="rightBtn" type="button" class="button button1" value="Right">
@@ -341,17 +341,17 @@ function loop() {
         context.fill();
         context.stroke();
 
-        // context.fillRect(col * grid, row * grid, grid, grid);
-        // context.strokeRect(col * grid, row * grid, grid, grid);
-        // context.strokeRect((col + 0.1) * grid, (row + 0.1) * grid, grid - (0.2 * grid), grid - (0.2 * grid));
+        context.fillRect(col * grid, row * grid, grid, grid);
+        context.strokeRect(col * grid, row * grid, grid, grid);
+        context.strokeRect((col + 0.1) * grid, (row + 0.1) * grid, grid - (0.2 * grid), grid - (0.2 * grid));
 
         // X
-        context.beginPath();
-        context.moveTo((col + 0.2) * grid, (row + 0.2) * grid);
-        context.lineTo((col + 0.8) * grid, (row + 0.8) * grid);
-        context.moveTo((col + 0.8) * grid, (row + 0.2) * grid);
-        context.lineTo((col + 0.2) * grid, (row + 0.8) * grid);
-        context.stroke();
+        // context.beginPath();
+        // context.moveTo((col + 0.2) * grid, (row + 0.2) * grid);
+        // context.lineTo((col + 0.8) * grid, (row + 0.8) * grid);
+        // context.moveTo((col + 0.8) * grid, (row + 0.2) * grid);
+        // context.lineTo((col + 0.2) * grid, (row + 0.8) * grid);
+        // context.stroke();
       }
 
       if (cell === types.goal || cell === types.playerOnGoal) {
