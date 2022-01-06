@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PSL Aklan IC Easy</title>
+  <title>PSL La Monja IC Easy</title>
   <meta charset="UTF-8">
   <style>
   html, body {
@@ -15,7 +15,7 @@
   }
 
   body {
-    background: #ded6ae;
+    background: #808080;
     display: table-cell;
     text-align:center; vertical-align:middle;
     /*align-items: center;*/
@@ -23,7 +23,7 @@
   }
 
   .button {
-    background-color: #B65FCF;
+    background-color: #b22222;
     border: none;
     color: white;
     padding: 16px 32px;
@@ -39,16 +39,16 @@
   .button1 {
     background-color: white; 
     color: black; 
-    border: 2px solid #B65FCF;
+    border: 2px solid #b22222;
   }
 
   .button1:hover {
-    background-color: #B65FCF;
+    background-color: #b22222;
     color: white;
   }
 
   .button2 {
-    background-color: orange; 
+    background-color: b22222; 
     color: black; 
     border: 2px solid black;
   }
@@ -60,7 +60,7 @@
   </style>
 </head>
 <body>
-    <img src="https://i.imgur.com/BeRJP4k.png" style="width:200px;">
+    <img src="https://i.ibb.co/NY74rDH/PSL19-logo.png" style="width:200px;">
     <br>
     <canvas width="800" height="800" id="game"></canvas>
     <br>
@@ -85,7 +85,7 @@ wallCanvas.width = wallCanvas.height = grid;
 
 wallCtx.fillStyle = '#5b5530';
 wallCtx.fillRect(0, 0, grid, grid);
-wallCtx.fillStyle = '#a19555';
+wallCtx.fillStyle = '#A9A9A9';
 
 // 1st row brick
 wallCtx.fillRect(1, 1, grid - 2, 20);
@@ -318,7 +318,7 @@ function loop() {
             fillColor = '#daa520'; // TODO: to correct color
             break;
           case types.barrel:
-            fillColor = '#B65FCF'; //purple
+            fillColor = '#b22222'; //firebrick
             // at least one barrel is not on goal
             allBlocksOnGoals = false;
             break;
@@ -350,7 +350,7 @@ function loop() {
       }
 
       if (cell === types.goal || cell === types.playerOnGoal) {
-        context.fillStyle = '#B65FCF';
+        context.fillStyle = '#b22222';
         context.beginPath();
         context.arc((col + 0.5) * grid, (row + 0.5) * grid, 10, 0, Math.PI * 2);
         context.fill();

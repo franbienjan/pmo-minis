@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/psl-aklan-dos")
+@RequestMapping("/psl-19-dos")
 public class PSLSokoban2Controller {
 
-    private static final String PSL_SLIDE_2_HOME = "psl-aklan-2";
+    private static final String PSL_SLIDE_2_HOME = "psl-19-dos";
 
     @GetMapping()
     public String startLevel() {

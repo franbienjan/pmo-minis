@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/psl-aklan-trois")
+@RequestMapping("/psl-19-thr33")
 public class PSLSokoban3Controller {
 
     private static final String PSL_SLIDE_3_HOME = "psl-aklan-3";
