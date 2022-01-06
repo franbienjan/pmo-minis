@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/psl-19")
 public class PSLSokoban1Controller {
 
-    private static final String PSL_SLIDE_1_HOME = "psl-19";
+    private static final String PSL_SLIDE_1_HOME = "psl-aklan";
 
     @GetMapping()
     public String startLevel() {
